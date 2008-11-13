@@ -2,4 +2,6 @@
 name = Views Tabs
 description = Enables the presentation of views through tabs.
 package = Views
-dependencies = views tabs
+dependencies[] = views 
+dependencies[] = tabs
+core = 6.x

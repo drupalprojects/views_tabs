@@ -9,19 +9,15 @@
 /**
  * Implementation of hook_menu()
  */
-function views_tabs_menu($may_cache) {
+function views_tabs_menu() {
   $items = array();
-
-  if ($may_cache) {
-    $items[] = array(
-      'path' => 'admin/settings/views-tabs',
-      'title' => t('Views Tabs'),
-      'description' => t('Set display options.'),
-      'callback' => 'drupal_get_form',
-      'callback arguments' => array('views_tabs_admin_settings'),
-      'access' => user_access('administer site configuration'),
-    );
-  }
+  $items['admin/settings/viewstabs'] = array(
+    'title' => 'Views Tabs',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('views_tabs_admin_settings'),
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_LOCAL_TASK,
+  );
 
   return $items;
 }
@@ -46,38 +42,10 @@ function views_tabs_admin_settings() {
 }
 
 /**
- *  Implementation of hook_views_style_plugins()
- */
-function views_tabs_views_style_plugins() {
-  $plugins = array();
-
-  $plugins['tabs_fields'] = array(
-    'name' => t('Tabs - Fields'),
-    'theme' => 'views_tabs_display',
-    // Reuse the validation for lists as this covers
-    // the needed functionality.
-    'validate' => 'views_ui_plugin_validate_list',
-    'needs_fields' => TRUE,
-    'needs_table_header' => FALSE,
-  );
-  $plugins['tabs_teaser'] = array(
-    'name' => t('Tabs - Teaser List'),
-    'theme' => 'views_tabs_display',
-  );
-  $plugins['tabs_node'] = array(
-    'name' => t('Tabs - Full Nodes'),
-    'theme' => 'views_tabs_display',
-  );
-
-  return $plugins;
-}
-
-/**
  * Display the nodes of a view on tabs.
  */
 function theme_views_tabs_display($view, $nodes, $type, $teasers = FALSE, $links = TRUE) {
-  $fields = _views_get_fields();
-
+  // $fields = _views_get_fields();
   $tabset = array(
     '#type' => 'tabset',
   );
@@ -118,4 +86,19 @@ function theme_views_tabs_display($view, $nodes, $type, $teasers = FALSE, $links
   if (element_children($tabset)) {
     return tabs_render($tabset);
   }
+}
+
+function views_tabs_display_theme() {
+  return array(
+    'views_tabs_display_format' => array(
+      'arguments' => array('view', 'nodes', 'type', 'teasers', 'links'),
+    ),
+  );
+}
+
+function views_tabs_views_api() {
+  return array(
+    'api' => 2,
+    'path' => drupal_get_path('module', 'views_tabs') .'/includes',
+  );
 }
