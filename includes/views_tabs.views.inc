@@ -27,7 +27,7 @@ function views_tabs_views_plugins() {
         'theme' => 'views_view_fields',
         'uses row plugin' => TRUE,
         'uses options' => TRUE,
-        'uses grouping' => FALSE,
+        'uses grouping' => TRUE,
         'type' => 'normal',
       ),
     ),
