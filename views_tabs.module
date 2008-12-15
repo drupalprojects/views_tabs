@@ -41,61 +41,6 @@ function views_tabs_admin_settings() {
   return system_settings_form($form);
 }
 
-/**
- * Display the nodes of a view on tabs.
- */
-function theme_views_tabs_display($view, $nodes, $type, $teasers = FALSE, $links = TRUE) {
-  // $fields = _views_get_fields();
-  $tabset = array(
-    '#type' => 'tabset',
-  );
-
-  foreach ($nodes as $node) {
-
-    switch ($view->type) {
-      case 'tabs_fields':
-        $item = '';
-        foreach ($view->field as $field) {
-          if ($fields[$field['id']]['visible'] !== FALSE) {
-            if ($field['label']) {
-              $item .= "<div class='view-label ". views_css_safe('view-label-'. $field['queryname']) ."'>" . $field['label'] . "</div>";
-            }
-            $item .= "<div class='view-field ". views_css_safe('view-data-'. $field['queryname']) ."'>" . views_theme_field('views_handle_field', $field['queryname'], $fields, $field, $node, $view) . "</div>";
-          }
-        }
-        $title = check_plain($node->node_title);
-        $content = "<div class='view-item ". views_css_safe('view-item-'. $view->name) ."'>$item</div>\n";
-        break;
-
-      case 'tabs_teaser':
-      case 'tabs_node':
-        $node = node_load($node->nid);
-        $content = node_view($node, $teasers, FALSE, $links);
-        $title = check_plain($node->title);
-        break;
-    }
-    if ($length = variable_get('views_tabs_truncate_length', 0)) {
-      $title = truncate_utf8($title, $length, TRUE, TRUE);
-    }
-    $tabset[$title] = array(
-      '#type' => 'tabpage',
-      '#content' => $content,
-      '#title' => $title,
-    );
-  }
-  if (element_children($tabset)) {
-    return tabs_render($tabset);
-  }
-}
-
-function views_tabs_display_theme() {
-  return array(
-    'views_tabs_display_format' => array(
-      'arguments' => array('view', 'nodes', 'type', 'teasers', 'links'),
-    ),
-  );
-}
-
 function views_tabs_views_api() {
   return array(
     'api' => 2,

@@ -19,12 +19,11 @@ function views_tabs_views_handlers() {
 function views_tabs_views_plugins() {
   $plugins = array(
     'style' => array(
-      'tabs_fields' => array(
-        'title' => t('Tabs fields'),
-        'help' => t('Output fields to a tabs'),
+      'views_tabs' => array(
+        'title' => t('Views Tabs'),
+        'help' => t('Output results to tabs'),
         'handler' => 'views_tabs_plugin_style',
         'path' => drupal_get_path('module', 'views_tabs') . '/includes',
-        'theme' => 'views_view_fields',
         'uses row plugin' => TRUE,
         'uses options' => TRUE,
         'uses grouping' => TRUE,
