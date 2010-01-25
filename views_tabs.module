@@ -13,10 +13,11 @@ function views_tabs_menu() {
   $items = array();
   $items['admin/settings/viewstabs'] = array(
     'title' => 'Views Tabs',
+    'description' => t('Configure settings for Views Tabs'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('views_tabs_admin_settings'),
     'access arguments' => array('administer site configuration'),
-    'type' => MENU_LOCAL_TASK,
+    'type' => MENU_NORMAL_ITEM,
   );
 
   return $items;
