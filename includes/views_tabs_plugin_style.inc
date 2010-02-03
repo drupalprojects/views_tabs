@@ -35,6 +35,7 @@ class views_tabs_plugin_style extends views_plugin_style {
     }
     $tabset = array(
       '#type' => 'tabset',
+      '#sorted' => true,
     );
     // Group the rows according to the grouping field, if specified.
     $sets = $this->render_grouping($this->view->result, $this->options['grouping']);
