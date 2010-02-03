@@ -78,7 +78,7 @@ class views_tabs_plugin_style extends views_plugin_style {
           '#title' => $title,
           '#attributes' => array('class' => 'tab-title'),
         );
-      } else {
+      } else if ($this->uses_fields()) {
         $tabset[$title]['#content'] .= $content;
       }
     }
