@@ -1,4 +1,4 @@
-; $Id $
+; $Id$
 name = Views Tabs
 description = Enables the presentation of views through tabs.
 package = Views

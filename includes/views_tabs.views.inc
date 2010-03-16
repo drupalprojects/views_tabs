@@ -1,4 +1,5 @@
 <?php
+// $Id$
 
 function views_tabs_views_handlers() {
   return array(
