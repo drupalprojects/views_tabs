@@ -1,5 +1,4 @@
 <?php
-// $Id$
 
 class views_tabs_plugin_style extends views_plugin_style {
 
